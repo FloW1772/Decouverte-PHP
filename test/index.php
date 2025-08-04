@@ -6,11 +6,24 @@
 const UNE_CONSTANTE = "je suis une constante";
 //defined("UNE_CONSTANTE", 'je suis toujours une constante');
     echo "Hello World!";
-    //le typage existe et en voila l'exemple parfais
+    echo "<br>";
+
+//le typage existe et en voila l'exemple parfais
     $maVariable = "Je suis une chaine";
     $autreVariable = 10;
+    echo "<br>";
 
-    $var = "0";
+$var = "0";
+    echo "<br>";
+
+$chaine = "salut voici le contenu de var : $var";
+    echo $chaine;
+    echo "<br>";
+    echo '<p>ceci est un paragraphe</p>';
+
+    $chaine = 'salut voici le contenu de var : $var';
+    echo $chaine;
+
 
 
     ?>
@@ -38,13 +51,13 @@ var_dump(isset($maVariable));
 
 var_dump(defined('UNE_CONSTANTE'));
 
-var_dump($var);
+var_dump($var * 3);
 var_dump(isset($var));
 var_dump(empty($var));
 
 //est se qu'elle est vrai ou fausse
 var_dump($var == false);
-//est se qu'elle est vrai ou fausse et booléenne
+//est se qu'elle est vrai ou fausse et booléenne a utilisé plus facilement et plus souvent
 var_dump($var === false);
 
 
