@@ -9,3 +9,6 @@ var_dump($ts);
 $d = date('d/m/Y H:i:s' );
 
 var_dump($d);
+
+
+$listeCours = [ "10-PA PA PA PAM"];
