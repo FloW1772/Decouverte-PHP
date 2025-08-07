@@ -1,7 +1,16 @@
 <?php
+    if (!empty($_POST)){
+
+        $nom = filter_var($_POST['nom'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $nom = filter_input(INPUT_POST,'nom', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        echo "<p>" . $nom . "</p>";
 
 
-var_dump($_POST);
+//echo "<p>" . $_POST['nom'] . "</p>";
+}
+
+
 
 ?>
 
