@@ -8,10 +8,26 @@
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {% block importmap %}
+                {{ importmap('app') }}
+            {% endblock %}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    <h1>
+        Ceci est le contenu de "base.html.twig"
+    </h1>
+
+    <nav>
+        Barre de navigation
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
     </body>
 </html>
