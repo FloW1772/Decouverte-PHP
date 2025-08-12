@@ -11,6 +11,7 @@ final class TestController extends AbstractController
     #[Route('/bonjour', name: 'app_test')]
     public function toto(): Response
     {
+        $varHTML = 'h1
         return $this->render('test/index.html.twig');
     }
 
