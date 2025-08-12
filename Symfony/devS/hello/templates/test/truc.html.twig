@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% set variable = "je suis une variable" %}
+
+{% use 'block.html.twig' %}
+
+
+{% block title %}Hello TestController2!{% endblock %}
+
+{% block body %}
+    <h2>WAWA !</h2>
+
+    {% block toto %}  {{ parent() }} . ça c'est du contenu supplémentaire {% endblock %}
+
+    {% include 'block2.html.twig' with {variable : variable} %}
+
+    {% set johnny {= name: 'Johny', age: 74}  %}
+
+    <p>{{  johnny.name }} age de {{ johnny.age }}</p>
+{% endblock %}

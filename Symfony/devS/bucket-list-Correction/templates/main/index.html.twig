@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LivreController!{% endblock %}
+
+{% block body %}
+    <a href="{{ path('livre_liste') }}">Lister les livres</a><br>
+    <a href="{{ path('livre_edit') }}">Editer un livre</a><br>
+    <a href="{{ path('livre_delete') }}">Supprimer un livre</a>
+{% endblock %}

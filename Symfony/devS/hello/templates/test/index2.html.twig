@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+    <h1>Page d'accueil</h1>
+
+    {% set ma_variable = 'Je suis une variable' %}
+
+    <p>{{ ma_variable ~ ' concaténée' }}</p>
+
+    {% set ma_variable = 12 %}
+
+    <p>{{ ma_variable * 3 }}</p>
+
+    {% if ma_variable > 10 %}
+        <p>{{ ma_variable }} est supérieure à 10</p>
+    {% else %}
+        <p>ma variable est inférieure à 10</p>
+    {% endif %}
+
+    {% set j = 0 %}
+
+    <ul>
+    {% for i in 0..10 %}
+        {% set j = j+2 %}
+        <li>{{ i }} - {{ j }}</li>
+    {% endfor %}
+    </ul>
+
+    {% set chaine = "Je suis une chaine" %}
+
+    <p>{{ chaine|upper }}</p>
+    
+
+{% endblock %}
