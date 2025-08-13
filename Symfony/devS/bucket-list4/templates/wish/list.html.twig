@@ -4,5 +4,15 @@
 
 {% block body %}
     <h1>Liste des choses à faire</h1>
-    <p>Ici apparaîtra la liste des souhaits.</p>
+    <ul>
+        {% for wish in wishes %}
+            <li>
+                <a href="{{ path('app_wish_detail', {id: wish.id}) }}">
+                    {{ wish.title }}
+                </a>
+            </li>
+        {% else %}
+            <li>Aucune idée publiée pour l’instant.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
