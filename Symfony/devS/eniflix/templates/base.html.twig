@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Eniflix{% endblock %}</title>
-    <link rel="icon" href=" {{ asset('images/icon.png') }}">
+    <link rel="icon" href="{{ asset('images/icon.png') }}">
     {% block stylesheets %}
     {% endblock %}
 
@@ -12,12 +12,11 @@
     {% endblock %}
 </head>
 <body>
-<h1><img src="{{ asset('images/logo.png') }}" alt="logo Eniflix"></h1>
+<h1><img src="{{ asset('images/logo.png') }}" alt="Logo Eniflix"></h1>
 <nav>
     <ul>
         <li><a href="{{ path('home') }}">Home</a></li>
-        <li><a href="#">Catalogue</a></li>
-
+        <li><a href="{{ path('serie_list') }}">Catalogue</a></li>
     </ul>
 </nav>
 {% block body %}{% endblock %}
