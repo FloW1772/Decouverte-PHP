@@ -32,6 +32,8 @@ final class SerieController extends AbstractController
             $offset,
         );
 
+      //  dd($series);
+
 
         $total = $serieRepository->count($criterias);
         $totalPages = ceil($total / $nbPerPage);
