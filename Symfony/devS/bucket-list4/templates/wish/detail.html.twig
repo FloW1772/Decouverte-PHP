@@ -3,8 +3,20 @@
 {% block title %}Détail - {{ wish.title }}{% endblock %}
 
 {% block body %}
-    <h1>{{ wish.title }}</h1>
-    <p>{{ wish.description }}</p>
-    <p><strong>Auteur :</strong> {{ wish.author }}</p>
-    <p><strong>Date de création :</strong> {{ wish.dateCreated|date('d/m/Y H:i') }}</p>
+    <div class="container my-5">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">{{ wish.title }}</h2>
+            </div>
+            <div class="card-body">
+                <p class="lead">{{ wish.description }}</p>
+                <hr>
+                <p><strong>Auteur :</strong> {{ wish.author }}</p>
+                <p><strong>Date de création :</strong> {{ wish.dateCreated|date('d/m/Y H:i') }}</p>
+            </div>
+            <div class="card-footer text-end">
+                <a href="{{ path('app_wish_list') }}" class="btn btn-secondary">← Retour à la liste</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
