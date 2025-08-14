@@ -15,16 +15,16 @@ class SerieFixtures extends Fixture
 
         //dd($faker->realText(maxNbChars: 30));
 
+        for ($i = 0; $i < 1000; $i++) {
         $serie = new Serie();
-
         $serie->setName($faker->realText(maxNbChars: 30))
         ->setOverview($faker->paragraph(nbSentences: 2))
         ->setGenre($faker->randomElement(['Drama', 'Western', 'Comedy', 'Horror', 'Thriller']))
-            ->setStatus($faker->randomElement(['Returning', 'Ended', 'Canceled']))
-            ->setVote($faker->randomFloat(nbMaxDecimals: 2, min: 0,max: 10))
-            ->setPopularity($faker->randomFloat(nbMaxDecimals: 2, min: 200,max: 900))
-            ->setFirstAirDate($faker->dateTimeBetween('-10 year', '-1 month'))
-            ->setDateCreated(new \DateTime())
+        ->setStatus($faker->randomElement(['Returning', 'Ended', 'Canceled']))
+        ->setVote($faker->randomFloat(nbMaxDecimals: 2, min: 0,max: 10))
+        ->setPopularity($faker->randomFloat(nbMaxDecimals: 2, min: 200,max: 900))
+        ->setFirstAirDate($faker->dateTimeBetween('-10 year', '-1 month'))
+        ->setDateCreated(new \DateTime())
 
             ;
 
@@ -33,8 +33,8 @@ class SerieFixtures extends Fixture
         if ($serie->getStatus() === 'Returning') {
             $serie->setLastAirDate($faker->dateTimeBetween($serie->getFirstAirDate(), endDate: '-1 day'));
         }
-
-
-        $manager->flush();
+        $manager->persist($serie);
     }
+    $manager->flush();
+  }
 }

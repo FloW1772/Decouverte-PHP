@@ -12,9 +12,23 @@ final class SerieController extends AbstractController
 {
 
     #[Route('/list', name: '_list', methods: ['GET'])]
-    public function list(SerieRepository $serieRepository): Response
+    public function list(SerieRepository $serieRepository, int $page): Response
     {
-        $series = $serieRepository->findAll();
+        //$series = $serieRepository->findAll();
+
+        $series = $serieRepository->findBy(
+            [
+                'status' => 'Returning',
+                'genre'  => 'Drama',
+            ],
+            [
+                'popularity' => 'DESC',
+            ],
+            limit: 10,
+            offset: 0
+
+        );
+
 
         return $this->render('serie/list.html.twig', [
             'series' => $series
