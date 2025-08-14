@@ -25,25 +25,40 @@ final class SerieController extends AbstractController
         ];
 
         $series = $serieRepository->findBy(
-            $criterias
-            ,
-            ['popularity' => 'DESC',],
+            $criterias,
+            ['popularity' => 'DESC'],
             $nbPerPage,
-            $offset,
+            $offset
         );
-
-      //  dd($series);
-
 
         $total = $serieRepository->count($criterias);
         $totalPages = ceil($total / $nbPerPage);
 
         return $this->render('serie/list.html.twig', [
+                'series' => $series,
+                'page' => $page,
+                'total_pages' => $totalPages,
+            ]
+        );
+    }
+
+    #[Route('/liste-custom', name: '_custom_list')]
+    public function listCustom(SerieRepository $serieRepository): Response
+    {
+        //$series = $serieRepository->findSeriesCustom(400, 8);
+        $series = $serieRepository->findSeriesWithDQL(400, 8);
+
+        // Le requêtage SQL raw nécessite qu'on adapte le template (firstAirDate -> first_air_date)
+        //$series = $serieRepository->findSeriesWithSQL(400, 8);
+
+        return $this->render('serie/list.html.twig', [
             'series' => $series,
-            'page' => $page,
-            'total_pages' => $totalPages,
+            'page' => 1,
+            'total_pages' => 10,
         ]);
     }
+
+
 
     #[Route('/detail/{id}', name: '_detail')]
     public function detail(int $id, SerieRepository $serieRepository): Response
