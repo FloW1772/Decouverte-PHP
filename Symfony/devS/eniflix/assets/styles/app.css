@@ -4,7 +4,7 @@ body {
     background-position: center center;
     background-size: cover;
     color: #EEE;
-    font-family: roboto, sans-serif;
+    font-family: 'Roboto', sans-serif;
     padding: 10px;
 }
 
@@ -17,5 +17,11 @@ nav ul {
 
 nav li a {
     text-decoration: none;
-    color: white;
+    color: inherit;
+}
+
+.series-list {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
