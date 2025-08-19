@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des idées{% endblock %}
+
+{% block body %}
+    <h1>Liste des idées</h1>
+
+    <a href="{{ path('app_wish_create') }}" class="btn btn-primary mb-3">➕ Ajouter une idée</a>
+
+    <ul class="list-group">
+        {% for wish in wishes %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{{ path('app_wish_detail', {id: wish.id}) }}">
+                    {{ wish.title }}
+                </a>
+                <div>
+                    <a href="{{ path('app_wish_edit', {id: wish.id}) }}" class="btn btn-warning btn-sm">✏️ Éditer</a>
+
+                    <form action="{{ path('app_wish_delete', {id: wish.id}) }}" method="post" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ wish.id) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">🗑️ Supprimer</button>
+                    </form>
+                </div>
+            </li>
+        {% else %}
+            <li class="list-group-item">Aucune idée pour le moment</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

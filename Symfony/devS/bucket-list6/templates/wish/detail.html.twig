@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'idée{% endblock %}
+
+{% block body %}
+    <h1>{{ wish.title }}</h1>
+    <p>{{ wish.description }}</p>
+    <p><strong>Date de création :</strong> {{ wish.dateCreated|date('d/m/Y H:i') }}</p>
+    <p><strong>Dernière mise à jour :</strong> {{ wish.dateUpdated|date('d/m/Y H:i') }}</p>
+
+    <a href="{{ path('app_wish_edit', {id: wish.id}) }}" class="btn btn-warning">✏️ Modifier</a>
+
+    <form action="{{ path('app_wish_delete', {id: wish.id}) }}" method="post" style="display:inline;">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ wish.id) }}">
+        <button type="submit" class="btn btn-danger">🗑️ Supprimer</button>
+    </form>
+
+    <a href="{{ path('app_wish_index') }}" class="btn btn-secondary mt-2">⬅️ Retour à la liste</a>
+{% endblock %}

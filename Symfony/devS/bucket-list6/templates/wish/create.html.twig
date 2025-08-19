@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle idée{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle idée</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">💾 Enregistrer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_wish_index') }}" class="btn btn-secondary mt-2">⬅️ Retour à la liste</a>
+{% endblock %}
