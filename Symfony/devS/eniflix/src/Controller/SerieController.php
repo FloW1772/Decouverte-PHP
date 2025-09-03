@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Serie;
 use App\Form\SerieType;
+use App\Helper\FileUploader;
 use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,9 +13,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/serie', name: 'serie')]
+#[IsGranted('ROLE_USER')]
 final class SerieController extends AbstractController
 {
 
@@ -80,7 +83,8 @@ final class SerieController extends AbstractController
     }
 
     #[Route('/create', name: '_create')]
-    public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, ParameterBagInterface $parameterBag): Response
+    #[IsGranted('ROLE_ADMIN')]
+    public function create(Request $request, EntityManagerInterface $em, ParameterBagInterface $parameterBag, FileUploader $fileUploader): Response
     {
         $serie = new Serie();
         $form = $this->createForm(SerieType::class, $serie);
@@ -91,9 +95,12 @@ final class SerieController extends AbstractController
 
             $file = $form->get('poster_file')->getData();
             if ($file instanceof UploadedFile) {
-                $name = $slugger->slug($serie->getName()) . '-' . uniqid() . '.' . $file->guessExtension();
-                $dir = $parameterBag->get('serie')['poster_directory'];
-                $file->move($dir, $name);
+                $name = $fileUploader->upload(
+                    $file,
+                    $serie->getName(),
+                    $parameterBag->get('serie')['poster_directory']
+                );
+
                 $serie->setPoster($name);
             }
 
@@ -111,11 +118,12 @@ final class SerieController extends AbstractController
     }
 
     #[Route('/update/{id}', name: '_update', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function update(
         Serie $serie,
         Request $request,
         EntityManagerInterface $em,
-        SluggerInterface $slugger,
+        FileUploader $fileUploader,
         ParameterBagInterface $parameterBag
     ): Response
     {
@@ -127,9 +135,12 @@ final class SerieController extends AbstractController
 
             $file = $form->get('poster_file')->getData();
             if ($file instanceof UploadedFile) {
-                $name = $slugger->slug($serie->getName()) . '-' . uniqid() . '.' . $file->guessExtension();
                 $dir = $parameterBag->get('serie')['poster_directory'];
-                $file->move($dir, $name);
+                $name = $fileUploader->upload(
+                    $file,
+                    $serie->getName(),
+                    $dir
+                );
                 if ($serie->getPoster() && file_exists($dir . '/' . $serie->getPoster())) {
                     unlink($dir . '/' . $serie->getPoster());
                 }
@@ -149,6 +160,7 @@ final class SerieController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Serie $serie, EntityManagerInterface $em, Request $request): Response
     {
         if ($this->isCsrfTokenValid('delete'.$serie->getId(), $request->get('token'))) {
